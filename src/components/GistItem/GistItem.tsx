@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGithub } from '../../utils/github'
 import { Gist } from '../GistList/GistList'
 import styles from './GistItem.module.css'
@@ -49,14 +49,29 @@ const ViewForks: React.FC<{
 }
 
 const GistItem: React.FC<GistItemProps> = ({ gist }) => {
+  const [languages, setLanguages] = useState<string[]>([])
   const [showForks, setShowForks] = useState(false)
-
   const gistName = composeGistName(gist)
+
+  useEffect(() => {
+    if (!gist) return
+    // Dedupe language values
+    const languageSet = new Set(Object.values(gist.files).map(file => file.language))
+
+    setLanguages(Array.from(languageSet))
+  }, [gist])
 
   return (
     <li className={styles.item}>
       <a href={gist.html_url} target="_blank" rel="noreferrer">
         {gistName}
+        {
+          languages.map(lang => (
+            <span key={lang}>
+              {lang}
+            </span>
+          ))
+        }
       </a>
 
       <button
