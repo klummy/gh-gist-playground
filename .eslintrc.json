@@ -1,6 +1,7 @@
 {
   "env": {
     "browser": true,
+    "jest": true,
     "es2021": true
   },
   "extends": [
@@ -19,6 +20,7 @@
   },
   "plugins": [
     "react",
+    "jest",
     "jsx-a11y",
     "@typescript-eslint"
   ],
