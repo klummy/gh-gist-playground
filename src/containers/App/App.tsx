@@ -10,7 +10,6 @@ const App: React.FC = () => {
     const username = new FormData(event.target as HTMLFormElement).get('username') as string
 
     setUsername(username)
-    console.log('username => ', username)
   }
 
   return (
@@ -34,6 +33,8 @@ const App: React.FC = () => {
           <GistList username={username} />
         )
       }
+
+      {/* PENDING: Pagination: Github uses Cursor based pagination to allow for scrolling */}
     </div>
   )
 }
