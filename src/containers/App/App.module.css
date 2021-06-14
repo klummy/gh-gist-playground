@@ -1,0 +1,39 @@
+.app {
+    margin: 0 auto;
+    max-width: 100vw;
+    padding: 16px 8px;
+    width: 600px;
+}
+
+.form {
+    background-color: #fff;
+    align-items: center;
+    border: 1px solid #999;
+    border-radius: 4px;
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.form:focus-within {
+    border-color: #000;
+}
+
+.searchInput,
+.button {
+    height: 50px;
+}
+
+.searchInput {
+    border: none;
+    flex: 1;
+    margin-left: 8px;
+    outline: none;
+    padding: 0 8px;
+}
+
+.button {
+    background-color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 0 16px;
+}

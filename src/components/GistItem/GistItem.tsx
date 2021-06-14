@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useGithub } from '../../utils/github'
 import { Gist } from '../GistList/GistList'
+import Loader from '../Loader/Loader'
 import styles from './GistItem.module.css'
 
 export interface GistItemProps {
@@ -25,14 +26,14 @@ const ViewForks: React.FC<{
 
   if (loading) {
     return (
-      <span>Loading</span>
+      <Loader />
     )
   }
 
   if (error || !Array.isArray(forksData) || forksData.length === 0) {
     return (
       <span>
-        No forks found for specified gist
+        No forks found for gist
       </span>
     )
   }
@@ -41,7 +42,11 @@ const ViewForks: React.FC<{
     <ul className={styles.forks}>
       {
         forksData.map(fork => (
-          <li key={fork.id}>{composeGistName(fork)} by {fork.owner?.login}</li>
+          <li key={fork.id}>
+            <a href={fork.html_url} target="_blank" className={styles.forkLink} rel="noreferrer">
+              {composeGistName(fork)} by {fork.owner?.login}
+            </a>
+          </li>
         ))
       }
     </ul>
@@ -56,29 +61,48 @@ const GistItem: React.FC<GistItemProps> = ({ gist }) => {
   useEffect(() => {
     if (!gist) return
     // Dedupe language values
-    const languageSet = new Set(Object.values(gist.files).map(file => file.language))
+    const languageSet = new Set(Object.values(gist.files).map(file => file.language || 'Other'))
 
     setLanguages(Array.from(languageSet))
   }, [gist])
 
   return (
     <li className={styles.item}>
-      <a href={gist.html_url} target="_blank" rel="noreferrer">
-        {gistName}
-        {
-          languages.map(lang => (
-            <span key={lang}>
-              {lang}
-            </span>
-          ))
-        }
-      </a>
+      <a
+        href={gist.html_url}
+        target="_blank"
+        rel="noreferrer"
+        className={styles.itemLink}
+      >
+        <div className={styles.details}>
+          <span className={styles.title} title={gistName}>
+            {gistName}
+          </span>
 
-      <button
-        onClick={() => setShowForks(!showForks)}
-        type="button" >
-        {showForks ? 'Hide' : 'Show'} forks
-      </button>
+          <button
+            className={styles.viewForksButton}
+            onClick={(event) => {
+              event.preventDefault()
+              event.stopPropagation()
+              setShowForks(!showForks)
+            }}
+            type="button" >
+            {showForks ? 'Hide' : 'Show'} forks
+          </button>
+        </div>
+
+        <div className={styles.badges}>
+
+          {
+            languages.map(lang => (
+              <span key={lang} className={styles.badge}>
+                {lang}
+              </span>
+            ))
+          }
+        </div>
+
+      </a>
 
       {
         showForks && (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import GistList from '../../components/GistList/GistList'
+import styles from './App.module.css'
 
 const App: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -13,20 +14,19 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
-      <header>
-        <form onSubmit={handleFormSubmission}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="search"
-            required
-            name="username"
-            id="username"
-          />
+    <main className={styles.app}>
+      <form onSubmit={handleFormSubmission} className={styles.form}>
+        <input
+          className={styles.searchInput}
+          type="search"
+          required
+          name="username"
+          id="username"
+          placeholder="Search username"
+        />
 
-          <button type="submit">Search </button>
-        </form>
-      </header>
+        <button className={styles.button} type="submit">Search </button>
+      </form>
 
       {
         username && (
@@ -35,7 +35,7 @@ const App: React.FC = () => {
       }
 
       {/* PENDING: Pagination: Github uses Cursor based pagination to allow for scrolling */}
-    </div>
+    </main>
   )
 }
 

@@ -1,3 +1,46 @@
 .item {
-  
+    background-color: #ffffff;
+    border-radius: 4px;
+    min-width: 0;
+    padding: 8px;
+}
+
+.itemLink {
+    color: inherit;
+    text-decoration: none;
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    margin-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badges {}
+
+.badge {
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    display: inline-flex;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.badge:not(:last-child) {
+    margin-right: 8px;
+}
+
+.viewForksButton {
+    flex-shrink: 0;
+    width: 100px;
+}
+
+.forkLink {
+    color: inherit;
 }

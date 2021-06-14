@@ -24,7 +24,11 @@ export const useGithub = <T>(requestPath: string) => {
   const [error, setError] = useState<Error | null>()
 
   useEffect(() => {
+    // Reset values
     setLoading(true)
+    setData(null)
+    setError(null)
+
     githubClient<T>(requestPath)
       .then(res => setData(res))
       .catch(err => setError(err))

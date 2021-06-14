@@ -1,3 +1,10 @@
 @import '_normalize.css';
-
 @import '_variables.css';
+body {
+    background-color: #f2f2f2;
+    font-family: var(--default-font-family);
+}
+
+button {
+    cursor: pointer;
+}
